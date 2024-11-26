@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer), typeof(Collider))]
@@ -13,8 +11,7 @@ public class Cube : MonoBehaviour
     private void Awake()
     {
         _renderer = GetComponent<Renderer>();
-        _renderer.material.color = _baseColor;
-       
+        _renderer.material.color = _baseColor;       
     }
 
     private void OnCollisionEnter(Collision collision)
