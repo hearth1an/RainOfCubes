@@ -46,7 +46,6 @@ public class Spawner : MonoBehaviour
         float xPosition = _platformPosition.x + Random.Range(-halfX, halfX);
         float zPosition = _platformPosition.z + Random.Range(-halfZ, halfZ);
 
-        // Возвращаем случайную позицию на платформе
         return new Vector3(xPosition, _platformPosition.y, zPosition);
     }
 
