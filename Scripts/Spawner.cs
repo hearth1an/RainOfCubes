@@ -38,13 +38,16 @@ public class Spawner : MonoBehaviour
 
     private Vector3 GetRandomPosition()
     {
-        int half = 2;
+        int halfDivide = 2;
 
-        float halfX = _platformScale.x / half;
-        float halfZ = _platformPosition.z / half;
+        float halfX = _platformScale.x / halfDivide;
+        float halfZ = _platformScale.z / halfDivide;
         
-        float xPosition = _platformPosition.x + Random.Range(halfX, halfZ);        
+        float xPosition = _platformPosition.x + Random.Range(-halfX, halfX);
+        float zPosition = _platformPosition.z + Random.Range(-halfZ, halfZ);
 
-        return new Vector3(xPosition, _platformPosition.y, _platformPosition.z);
+        // Возвращаем случайную позицию на платформе
+        return new Vector3(xPosition, _platformPosition.y, zPosition);
     }
+
 }
