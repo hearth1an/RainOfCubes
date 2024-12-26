@@ -500,10 +500,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 2500201934880762594, guid: 86209d0bf388f8c44ae975d8bfcf4b80, type: 3}
-  _spawnPlatform: {fileID: 1919488253}
-  _poolSize: 10
-  _repeatRate: 0.5
   _bombSpawner: {fileID: 1556720524}
+  _spawnPlatform: {fileID: 1919488253}
 --- !u!4 &453521542
 Transform:
   m_ObjectHideFlags: 0
@@ -1619,6 +1617,7 @@ GameObject:
   - component: {fileID: 1505430112}
   - component: {fileID: 1505430111}
   - component: {fileID: 1505430110}
+  - component: {fileID: 1505430114}
   m_Layer: 5
   m_Name: BombsStats
   m_TagString: Untagged
@@ -1713,6 +1712,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1505430114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505430109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 475ad11f9e7b0ab4e8e7715da7c0ce09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _totalText: {fileID: 1222425249}
+  _spawnedText: {fileID: 786264469}
+  _activeText: {fileID: 1224857811}
+  _spawner: {fileID: 1556720524}
 --- !u!1 &1556720523
 GameObject:
   m_ObjectHideFlags: 0
@@ -1743,9 +1758,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 4406548402721515470, guid: 41e386eedd3228741900599958019835, type: 3}
-  _spawnPlatform: {fileID: 1919488253}
-  _poolSize: 10
-  _repeatRate: 0.5
 --- !u!4 &1556720525
 Transform:
   m_ObjectHideFlags: 0
