@@ -2,12 +2,14 @@ public class BombsStatsUpdater : StatsUIHandler<Bomb>
 {   
     private void OnEnable()
     {
-        _spawner.ObjectSpawned += OnBombSpawned;
+        Spawner.ObjectSpawned += OnBombSpawned;
+        Spawner.ObjectDeactivated += OnBombSpawned;
     }
 
     private void OnDisable()
     {
-        _spawner.ObjectSpawned -= OnBombSpawned;
+        Spawner.ObjectSpawned -= OnBombSpawned;
+        Spawner.ObjectDeactivated -= OnBombSpawned;
     }
 
     private void OnBombSpawned(Bomb bomb)

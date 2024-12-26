@@ -4,7 +4,7 @@ using UnityEngine.Pool;
 
 public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
 {    
-    [SerializeField] protected T _prefab;
+    [SerializeField] protected T Prefab;
     
     private ObjectPool<T> _pool;    
 
@@ -14,13 +14,14 @@ public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
     public float RepeatRate { get; private set; } = 1f;
 
     public event Action<T> ObjectSpawned;
+    public event Action<T> ObjectDeactivated;
 
     private void Awake()
     {
         _pool = new ObjectPool<T>(
             createFunc: CreateObject,
             actionOnGet: ActivateObject,
-            actionOnDestroy: HandleDestroyed
+            actionOnRelease: HandleReleased
         );
     }
 
@@ -29,7 +30,7 @@ public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
         Active++;
         Spawned++;
 
-        return Instantiate(_prefab);
+        return Instantiate(Prefab);
     }
 
     public abstract void ActivateObject(T obj);
@@ -42,12 +43,17 @@ public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
         Total++;
     }
 
-    public virtual void HandleDestroyed(T obj)
+    public virtual void HandleReleased(T obj)
     {
         DeactivateObject(obj);
+        ObjectDeactivated?.Invoke(obj);
 
-        Destroy(obj.gameObject);
         Active--;
+    }
+
+    protected virtual void ReleaseObject(T obj)
+    {
+        _pool.Release(obj);
     }
 
     protected virtual void GetObject()

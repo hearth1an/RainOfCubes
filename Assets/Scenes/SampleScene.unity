@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 311e77ed160cef644abdaa3712ac3351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 2500201934880762594, guid: 86209d0bf388f8c44ae975d8bfcf4b80, type: 3}
+  Prefab: {fileID: 2500201934880762594, guid: 86209d0bf388f8c44ae975d8bfcf4b80, type: 3}
   _bombSpawner: {fileID: 1556720524}
   _spawnPlatform: {fileID: 1919488253}
 --- !u!4 &453521542
@@ -1724,10 +1724,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475ad11f9e7b0ab4e8e7715da7c0ce09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _totalText: {fileID: 1222425249}
-  _spawnedText: {fileID: 786264469}
-  _activeText: {fileID: 1224857811}
-  _spawner: {fileID: 1556720524}
+  TotalText: {fileID: 1222425249}
+  SpawnedText: {fileID: 786264469}
+  ActiveText: {fileID: 1224857811}
+  Spawner: {fileID: 1556720524}
 --- !u!1 &1556720523
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,7 +1757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c307e6db77195874c9fc650dd34e7924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 4406548402721515470, guid: 41e386eedd3228741900599958019835, type: 3}
+  Prefab: {fileID: 4406548402721515470, guid: 41e386eedd3228741900599958019835, type: 3}
 --- !u!4 &1556720525
 Transform:
   m_ObjectHideFlags: 0
@@ -1892,10 +1892,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa15a78ed84fae2488fd01a4f3f40cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _totalText: {fileID: 910300817}
-  _spawnedText: {fileID: 351403034}
-  _activeText: {fileID: 74580185}
-  _spawner: {fileID: 453521541}
+  TotalText: {fileID: 910300817}
+  SpawnedText: {fileID: 351403034}
+  ActiveText: {fileID: 74580185}
+  Spawner: {fileID: 453521541}
 --- !u!1 &1919488251 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2621122550036650135, guid: c59f0723a812a0649b3ccca8a99ed6b3, type: 3}

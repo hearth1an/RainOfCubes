@@ -2,12 +2,14 @@ public class CubesUIUpdater : StatsUIHandler<Cube>
 {    
     private void OnEnable()
     {
-        _spawner.ObjectSpawned += OnCubeSpawned;
+        Spawner.ObjectSpawned += OnCubeSpawned;
+        //Spawner.ObjectDeactivated += OnCubeSpawned;
     }
 
     private void OnDisable()
     {
-        _spawner.ObjectSpawned -= OnCubeSpawned;
+        Spawner.ObjectSpawned -= OnCubeSpawned;
+        //Spawner.ObjectDeactivated -= OnCubeSpawned;
     }
 
     private void OnCubeSpawned(Cube cube)

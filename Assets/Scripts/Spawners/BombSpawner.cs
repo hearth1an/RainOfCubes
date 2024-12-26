@@ -5,7 +5,7 @@ public class BombSpawner : Spawner<Bomb>
         Bomb bomb = CreateObject();
         bomb.transform.position = cube.transform.position;
         ActivateObject(bomb);
-        bomb.BombDestroyed += HandleDestroyed;
+        bomb.BombDestroyed += ReleaseObject;
     }
 
     public override void ActivateObject(Bomb bomb)
@@ -15,6 +15,7 @@ public class BombSpawner : Spawner<Bomb>
 
     public override void DeactivateObject(Bomb bomb)
     {
-        bomb.BombDestroyed -= HandleDestroyed;
+        bomb.gameObject.SetActive(false);
+        bomb.BombDestroyed -= ReleaseObject;
     }
 }

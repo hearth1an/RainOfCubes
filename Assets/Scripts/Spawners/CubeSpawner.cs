@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CubeSpawner : Spawner<Cube>
@@ -5,14 +6,14 @@ public class CubeSpawner : Spawner<Cube>
     [SerializeField] private BombSpawner _bombSpawner;
     [SerializeField] private SpawnPlatform _spawnPlatform;
 
+    private WaitForSeconds _delay;
     private Vector3 _platformPosition => _spawnPlatform.transform.position;
     private Vector3 _platformScale => _spawnPlatform.transform.localScale;
 
     private void Start()
     {
-        float time = 0f;
-
-        InvokeRepeating(nameof(GetObject), time, RepeatRate);
+        _delay = new WaitForSeconds(RepeatRate);
+        StartCoroutine(GetObjectRoutine());
     }
 
     private void OnEnable()
@@ -29,13 +30,23 @@ public class CubeSpawner : Spawner<Cube>
     {
         cube.transform.position = GetRandomPosition();
         AddSpawned(cube);
-        cube.CubeDestroyed += HandleDestroyed;
+        cube.CubeDestroyed += ReleaseObject;
     }
 
     public override void DeactivateObject(Cube cube)
     {
+        cube.gameObject.SetActive(false);
         cube.CubeDestroyed -= _bombSpawner.CreateBomb;
-        cube.CubeDestroyed -= HandleDestroyed;
+        cube.CubeDestroyed -= ReleaseObject;
+    }
+
+    private IEnumerator GetObjectRoutine()
+    {
+        while (enabled)
+        {
+            GetObject();
+            yield return _delay;
+        }
     }
 
     private void OnCubeSpawned(Cube cube)
