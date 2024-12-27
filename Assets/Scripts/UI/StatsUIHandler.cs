@@ -7,7 +7,7 @@ public abstract class StatsUIHandler<T> : MonoBehaviour where T : MonoBehaviour
     private const string Spawned = "Spawned: ";
     private const string Active = "Active: ";
 
-    [SerializeField] protected TMP_Text TotalText;
+    [SerializeField] protected TMP_Text CreatedText;
     [SerializeField] protected TMP_Text SpawnedText;
     [SerializeField] protected TMP_Text ActiveText;
     [SerializeField] protected Spawner<T> Spawner;
@@ -19,7 +19,7 @@ public abstract class StatsUIHandler<T> : MonoBehaviour where T : MonoBehaviour
 
     private void UpdateTotal(int value)
     {
-        TotalText.text = Created + value;
+        CreatedText.text = Created + value;
     }
 
     private void UpdateSpawned(int value)

@@ -9,8 +9,8 @@ public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
     private ObjectPool<T> _pool;    
 
     public int Created { get; private set; } = 0;
-    public int Spawned => GetSpawned();
-    public int Active => GetActive();
+    public int Spawned { get; private set; } = 0;
+    public int Active { get; private set; } = 0;
     public float RepeatRate { get; private set; } = 1f;
 
     public event Action<T> ObjectSpawned;
@@ -26,7 +26,8 @@ public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
     }
 
     public T CreateObject()
-    {  
+    {
+        Created++;
         T obj = Instantiate(Prefab);
         ObjectSpawned?.Invoke(obj);
 
@@ -43,26 +44,6 @@ public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
         ObjectDeactivated?.Invoke(obj);
     }
 
-    private int GetSpawned()
-    {
-        int minValue = 0;
-
-        if (_pool == null)
-            return minValue;
-
-        return _pool.CountAll;
-    }
-
-    private int GetActive()
-    {
-        int minValue = 0;
-
-        if (_pool == null)
-            return minValue;
-
-        return _pool.CountActive;
-    }
-
     protected virtual void FixVelocity(T obj)
     {
         if (obj.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
@@ -74,11 +55,13 @@ public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
     protected virtual void ReleaseObject(T obj)
     {
         _pool.Release(obj);
+        Active--;
     }
 
     protected virtual void GetObject()
-    {
-        Created++;
-        _pool.Get();        
+    {        
+        _pool.Get();
+        Spawned++;
+        Active++;
     }
 }
