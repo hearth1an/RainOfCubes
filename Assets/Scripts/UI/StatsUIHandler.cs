@@ -3,7 +3,7 @@ using TMPro;
 
 public abstract class StatsUIHandler<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private const string Total = "Total: ";
+    private const string Created = "Created: ";
     private const string Spawned = "Spawned: ";
     private const string Active = "Active: ";
 
@@ -19,7 +19,7 @@ public abstract class StatsUIHandler<T> : MonoBehaviour where T : MonoBehaviour
 
     private void UpdateTotal(int value)
     {
-        TotalText.text = Total + value;
+        TotalText.text = Created + value;
     }
 
     private void UpdateSpawned(int value)
@@ -34,7 +34,7 @@ public abstract class StatsUIHandler<T> : MonoBehaviour where T : MonoBehaviour
 
     public virtual void UpdateUI()
     {
-        UpdateTotal(Spawner.Total);
+        UpdateTotal(Spawner.Created);
         UpdateSpawned(Spawner.Spawned);
         UpdateActive(Spawner.Active);
     }

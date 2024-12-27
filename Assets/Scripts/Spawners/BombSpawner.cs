@@ -1,16 +1,21 @@
+using UnityEngine;
+
 public class BombSpawner : Spawner<Bomb>
-{    
+{
+    private Vector3 _cubePosition;
+
     public void CreateBomb(Cube cube)
-    {        
-        Bomb bomb = CreateObject();
-        bomb.transform.position = cube.transform.position;
-        ActivateObject(bomb);
-        bomb.BombDestroyed += ReleaseObject;
+    {
+        GetObject();
+        _cubePosition = cube.transform.position;        
     }
 
     public override void ActivateObject(Bomb bomb)
-    {        
-        AddSpawned(bomb);
+    {
+        bomb.transform.position = _cubePosition;
+        FixVelocity(bomb);        
+        bomb.gameObject.SetActive(true);
+        bomb.BombDestroyed += ReleaseObject;       
     }
 
     public override void DeactivateObject(Bomb bomb)

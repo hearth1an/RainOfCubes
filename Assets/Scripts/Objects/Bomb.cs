@@ -3,10 +3,12 @@ using System.Collections;
 using UnityEngine;
 
 public class Bomb : Item
-{   
+{    
     private float _lifeTime;
     private float _targetAlpha = 0f;
+    private float _startAlpha = 1f;
     private float _explosionForce = 5;
+    private Color _startingColor;  
 
     private int _radius = 5;
     
@@ -14,9 +16,10 @@ public class Bomb : Item
 
     public event Action<Bomb> BombDestroyed;
 
-    private void Awake()
+    private void OnEnable()
     {
         _renderer = GetComponent<MeshRenderer>();
+        _startingColor = new Color(_renderer.material.color.r, _renderer.material.color.g, _renderer.material.color.b, _startAlpha);        
         Initialize();
     }    
 
@@ -29,15 +32,14 @@ public class Bomb : Item
     private IEnumerator TriggerExplosion()
     {
         float elapsedTime = 0;
-
-        Color startColor = _renderer.material.color;
-        Color targetColor = new Color(startColor.r, startColor.g, startColor.b, _targetAlpha);
+        
+        Color targetColor = new Color(_startingColor.r, _startingColor.g, _startingColor.b, _targetAlpha);
 
         while (elapsedTime < _lifeTime)
         {
             elapsedTime += Time.deltaTime;
 
-            _renderer.material.color = Color.Lerp(startColor, targetColor, elapsedTime / _lifeTime);
+            _renderer.material.color = Color.Lerp(_startingColor, targetColor, elapsedTime / _lifeTime);
 
             yield return null;
         }
@@ -55,9 +57,9 @@ public class Bomb : Item
 
         foreach (Collider hit in colliders)
         {            
-            if (hit.TryGetComponent<Rigidbody>(out Rigidbody rb))
+            if (hit.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
             {                
-                rb.AddExplosionForce(_explosionForce, transform.position, _radius, upwardsModifier, ForceMode.Impulse);
+                rigidbody.AddExplosionForce(_explosionForce, transform.position, _radius, upwardsModifier, ForceMode.Impulse);
             }
         }
 

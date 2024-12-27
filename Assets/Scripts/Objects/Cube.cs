@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer), typeof(Collider))]
@@ -18,30 +19,31 @@ public class Cube : Item
 
     private void OnCollisionEnter(Collision collision)
     {
-       if (collision.gameObject.GetComponent<Platform>() && _isTriggered == false)
+       if (collision.gameObject.TryGetComponent<Platform>(out Platform platform) && _isTriggered == false)
        {
             _isTriggered = true;
             ChangeColor();
-            
-            Invoke(nameof(TriggerDestroy), GetLifetime());
+
+            StartCoroutine(DestroyRoutine(GetLifetime()));
        }
     }
 
-    private void TriggerDestroy()
+    private IEnumerator DestroyRoutine(float time)
     {
+        float elapsedTime = 0;
+
+        while (elapsedTime < time)
+        {            
+            elapsedTime += Time.deltaTime;
+            
+            yield return null;
+        }
+
         CubeDestroyed?.Invoke(this);
     }
-
+    
     private void ChangeColor()
     {
         _renderer.material.color = new Color(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value);
-    }
-
-    public int GetDestroyDelay()
-    {
-        int minNumber = 2;
-        int maxNumber = 5;
-
-        return UnityEngine.Random.Range(minNumber, maxNumber);
-    }
+    }    
 }

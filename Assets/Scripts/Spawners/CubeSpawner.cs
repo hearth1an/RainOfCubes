@@ -16,28 +16,22 @@ public class CubeSpawner : Spawner<Cube>
         StartCoroutine(GetObjectRoutine());
     }
 
-    private void OnEnable()
-    {
-        ObjectSpawned += OnCubeSpawned;
-    }
-
-    private void OnDisable()
-    {
-        ObjectSpawned -= OnCubeSpawned;
-    }
-
     public override void ActivateObject(Cube cube)
-    {
+    {        
+        FixVelocity(cube);
+        
+        cube.gameObject.SetActive(true);        
+
         cube.transform.position = GetRandomPosition();
-        AddSpawned(cube);
-        cube.CubeDestroyed += ReleaseObject;
+        cube.CubeDestroyed += _bombSpawner.CreateBomb;
+        cube.CubeDestroyed += ReleaseObject;        
     }
 
     public override void DeactivateObject(Cube cube)
     {
         cube.gameObject.SetActive(false);
         cube.CubeDestroyed -= _bombSpawner.CreateBomb;
-        cube.CubeDestroyed -= ReleaseObject;
+        cube.CubeDestroyed -= ReleaseObject;                
     }
 
     private IEnumerator GetObjectRoutine()
@@ -48,12 +42,7 @@ public class CubeSpawner : Spawner<Cube>
             yield return _delay;
         }
     }
-
-    private void OnCubeSpawned(Cube cube)
-    {
-       cube.CubeDestroyed += _bombSpawner.CreateBomb;
-    }
-
+   
     private Vector3 GetRandomPosition()
     {
         int halfDivide = 2;
