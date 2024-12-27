@@ -7,7 +7,7 @@ public class BombSpawner : Spawner<Bomb>
     public void CreateBomb(Cube cube)
     {
         _cubePosition = cube.transform.position;
-        GetObject();               
+        GetObject();                
     }
 
     public override void ActivateObject(Bomb bomb)
